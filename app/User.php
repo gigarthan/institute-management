@@ -10,13 +10,19 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    /*
+     * User Role Constants
+     */
+     const ADMIN_TYPE = 'admin';
+     const DEFAULT_TYPE = 'staff';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'type'
     ];
 
     /**
@@ -27,4 +33,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * check if the user is an admin
+     *
+     *  @return Boolean
+     */
+    public function isAdmin() {
+        return($this->type === self::ADMIN_TYPE);
+    }
 }
